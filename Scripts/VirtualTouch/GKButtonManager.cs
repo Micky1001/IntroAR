@@ -51,30 +51,49 @@ public class GKButtonManager : MonoBehaviour
                 if (hit.collider.gameObject == RedButton) {
 		    // State RedButton collision was detected if using RedText for debugging purposes
 		    RedText.text = RedDefault + "True";
-                    if (press == 2) { press = 3;  SuccessText.text = "Success"; GKBooleans.isButtonSolved = true; hintText = "Success: X X X"; RedText.text = "Success: X X X"; }
-                    else if (press != 3) { press = 0; SuccessText.text = "Fail"; hintText = "_ _ _"; RedText.text = hintText; }
+
+		    // Evaluate if the red button was pressed at the correct sequence order using press.
+		    // If correct, updates debugging texts and game state solved (GKBooleans.isButtonSolved) appropriately
+                    if (press == 2) { press = 3; GKBooleans.isButtonSolved = true; hintText = "Success: X X X"; SuccessText.text = "Success: X X X"; }
+		    // Else, resets sequence value and debugging texts
+                    else if (press != 3) { press = 0; hintText = "_ _ _"; SuccessText.text = hintText; }
                 }
                 
                 // Check for GreenButton Collidder
                 else if (hit.collider.gameObject == GreenButton) {
+		    // State GreenButton collision was detected if using GreenText for debugging purposes
                     GreenText.text = GreenDefault + "True";
-                    if (press == 1) { press += 1; SuccessText.text = "X X _ "; hintText = "X X _"; RedText.text = hintText; }
-                    else if(press != 2) { press = 0; SuccessText.text = "Fail"; hintText = "_ _ _"; RedText.text = hintText; }
+
+		    // Evaluate	if the green button was pressed at the correct sequence order using press.
+		    // If correct, updates debugging texts and sequence index, press.
+                    if (press == 1) { press += 1; hintText = "X X _"; SuccessText.text = hintText; }
+		    // Else, resets sequence value and debugging texts
+                    else if(press != 2) { press = 0; hintText = "_ _ _"; SuccessText.text = hintText; }
                 }
 
                 // Check for BlueButton Collider
                 else if (hit.collider.gameObject == BlueButton) {
+		    // State BlueButton collision was detected if using BlueText for debugging purposes
                     BlueText.text = BlueDefault + "True";
-                    if (press == 0) { press += 1; SuccessText.text = " X _ _"; hintText = "X _ _"; RedText.text = hintText; }
-                    else if (press != 1) { press = 0; SuccessText.text = "Fail"; hintText = "_ _ _";  RedText.text = hintText; }
+
+		    // Evaluate if the blue button was pressed at the correct sequence order using press.
+		    // If correct, updates debugging texts and sequence	index, press.
+                    if (press == 0) { press += 1; hintText = "X _ _"; SuccessText.text = hintText; }
+		    // Else, resets sequence value and debugging texts
+                    else if (press != 1) { press = 0; hintText = "_ _ _";  SuccessText.text = hintText; }
                 }
 
-                // Else, you did not correctly touch the button
+                // Else, you did not correctly touch any button and game state does not advance.
+		// AN additional penalty/restriction could be implemented into the below else statement, but we choose to merely reconfirm the SuccessText display.
+		// An example penalty could occur whenever you touch an unrelated game object.
                 else {
-                    if (GKBooleans.isButtonSolved) { RedText.text = "Success: X X X"; }
-                    else { RedText.text = hintText; }
+                    if (GKBooleans.isButtonSolved) { SuccessText.text = "Success: X X X"; }
+                    else { SuccessText.text = hintText; }
                 }
             }
+	    // Else, the ray did not touch anything and game state does not advance.
+	    // An additional penalty/restriction could be implemented into the below else statement, but we choose to merely reconfirm the SuccessText display
+	    // An example metric (either for scoring or restriction) could be counting number of touches used to complete the escape room, which would require incrementing of some counter even if the ray misses.
             else
             {
                 if (GKBooleans.isButtonSolved) { RedText.text = "Success: X X X"; }
@@ -82,6 +101,9 @@ public class GKButtonManager : MonoBehaviour
             }
        
         }
+	// Else, no touch was detected and game state does not advanace.
+	// An additional penalty/restriction could be implemented into the below else statement, but we choose to merely reconfirm the SuccessText display.
+	// An example penalty could include a counter that incurs some game state change if no touches are detected for a large period of time
         else
         {
             if (GKBooleans.isButtonSolved) { RedText.text = "Success: X X X"; }
