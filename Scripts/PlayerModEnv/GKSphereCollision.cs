@@ -4,34 +4,21 @@ using UnityEngine;
 
 public class GKSphereCollision : MonoBehaviour
 {
-    private bool isInsideBox = false;
-    private float exitCooldown = 1.0f; // Adjust the cooldown duration as needed
-    private float timeSinceExit = 0.0f;
-
+    // When Collision occurs
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision");
+	// Sample Debug statement to evaluate whether or not the sphere object collider has been successfully initialized
+	Debug.Log("Sphere Object Collision identified")
+	// When a collision is detected, check if the collision corresponds to the desired/correct TicTacGrid
+	// Update each correct answer to be true once the correct collision is detected.
+	// You may add more complicated conditions under each if/else if statement
         if (other.gameObject.CompareTag("TicTacOplane"))
         {
+	    // Sample Debug statement toe valuate whether or not the Tic Tac Grid collider/tag has been correctly initialized
             Debug.Log("Sphere hit the plane!");
-            isInsideBox = true;
+	    // Adjust game state to account for correct GKBoolenas
             GKBooleans.isTicTacSphere = true;
-            timeSinceExit = 0.0f;
         }
     }
-
-
-
-    void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Collision");
-        if (other.gameObject.CompareTag("TicTacOplane"))
-        {
-            isInsideBox = false;
-            Debug.Log("Sphere left the plane!");
-            //GKBooleans.isTicTacSphere = false;
-        }
-    }
-
 
 }
