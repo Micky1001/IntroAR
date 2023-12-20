@@ -13,7 +13,7 @@ A high level summary of each of the interaction styles is as follows:
     - GKSphereCollision.cs: Identifies correct placement of Sphere objects in the Tic Tac Toe grid by looking at collision tags and updating booleans accordingly.
     - XCollision.cs:Identifies correct placement of Cross objects in the Tic Tac Toe grid by looking at collision tags and updating booleans accordingly.
 -  Player Perspective
-    -  KLPuzzleManager.cs: Access the screen positions of the virtual objects, and the puzzle is solved only when all of them are aligned. 
+    - KLPuzzleManager.cs: Access the screen positions of the virtual objects, and the puzzle is solved only when all of them are aligned. 
 -  Transmission Control Protocol
     -  GameManager.cs: This script ties together the key functionality, including get the action maker’s player ID, spawning player and connection to different scene
     -  NetworkManager.cs: This script implements the core functionality of all networking related events, including creating, joining and leaving rooms
