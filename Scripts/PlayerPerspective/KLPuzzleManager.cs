@@ -5,13 +5,14 @@ using TMPro;
 
 public class KLPuzzleManager : MonoBehaviour
 {
+    //gameobjects to hold all the spheres
     public GameObject object0;
     public GameObject object1;
     public GameObject object2;
     public GameObject object3;
     public GameObject object4;
-    public TextMeshProUGUI positionText;
-    public TMPro.TextMeshProUGUI puzzleHint;
+    public TextMeshProUGUI positionText;    //for testing purposes
+    public TMPro.TextMeshProUGUI puzzleHint;    
     public Camera arcam;
     // Start is called before the first frame update
     void Start()
@@ -23,22 +24,27 @@ public class KLPuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //when the puzzle is not solved
         if (!GKBooleans.isPerspSolved)
         {
+            //access all positions of all the spheres
             Vector3 button_pos0 = arcam.WorldToScreenPoint(object0.transform.position);
             Vector3 button_pos1 = arcam.WorldToScreenPoint(object1.transform.position);
             Vector3 button_pos2 = arcam.WorldToScreenPoint(object2.transform.position);
             Vector3 button_pos3 = arcam.WorldToScreenPoint(object3.transform.position);
             Vector3 button_pos4 = arcam.WorldToScreenPoint(object4.transform.position);
 
+            //display them for testing purposes
             positionText.text = "" + button_pos0+ "\n" + button_pos1 + "\n" + button_pos2 + "\n" + button_pos3 + "\n" + button_pos4;
 
+            //bools to determine to the spheres are aligned correctly
             bool correct0 = false;
             bool correct1 = false;
             bool correct2 = false;
             bool correct3 = false;
             bool correct4 = false;
 
+            //when the spheres are in the correct range, set the booleans to true
             if (button_pos0.x > 500 && button_pos0.x < 700 && button_pos0.y > 1800 && button_pos0.y < 2300)
             {
                 correct0 = true;
@@ -59,6 +65,8 @@ public class KLPuzzleManager : MonoBehaviour
             {
                 correct4 = true;
             }
+
+            //when all the spheres are aligned, the puzzle is solved
             if (correct0 && correct1 && correct2 && correct3 && correct4)
             {
                 positionText.text = "puzzle solved!";

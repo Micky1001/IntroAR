@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
-    public TextMeshProUGUI timerText; // Assign this in the inspector
-    private float startTime;
-    public static string lastTime;
-    private string timeString;
-    private bool isTimerRunning = false;
+    public TextMeshProUGUI timerText; // shows the time used during the gameplay    
+    private float startTime;         //starting time of the timer
+    public static string lastTime;   //lasting time of the timer
+    private string timeString;      //string used to display
+    private bool isTimerRunning = false;    //boolean that controls the timer
 
+
+    //scene management 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -23,12 +25,14 @@ public class GameTimer : MonoBehaviour
 
     private void Start()
     {
+        //display TIME text 
         timerText.text = "TIME";
         // isTimerRunning = true; // Removed this line to prevent timer from starting immediately
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        //start the timer when the game scene starts
         if (scene.name == "GKscene") // Replace with your game scene name
         {
             StartTimer();
@@ -37,19 +41,13 @@ public class GameTimer : MonoBehaviour
 
     void Update()
     {
-        // Start the timer when 'K' is pressed
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            StartTimer();
-        }
-
-        // Stop the timer when 'J' is pressed
-        //if (Input.GetKeyDown(KeyCode.J))
+        //if all puzzles are solved call StopTimer()
         if(GKBooleans.isButtonSolved && GKBooleans.isPerspSolved && GKBooleans.isTicTacSolved)
         {
             StopTimer();
         }
 
+        //let the timer count the time
         if (isTimerRunning)
         {
             float timeElapsed = Time.time - startTime;
@@ -77,6 +75,7 @@ public class GameTimer : MonoBehaviour
         }
     }
 
+    //format the timer for display
     private string FormatTime(float timeInSeconds)
     {
         int minutes = (int)timeInSeconds / 60;
