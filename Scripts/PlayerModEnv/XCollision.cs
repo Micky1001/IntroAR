@@ -7,6 +7,9 @@ public class XCollision : MonoBehaviour
     // When a collision is detected
     void OnTriggerEnter(Collider other)
     {
+	// Sample Debug statement to evaluate whether or not the sphere object collider has been successfully initialized
+	Debug.Log("Cross Object Collision identified")
+	
 	// When a collision is detected, check if the collision corresponds to the desired/correct TicTacGrid
 	// Update each correct answer to be true once the correct collision is detected.
 	// You may add more complicated conditions under each if/else if statement
